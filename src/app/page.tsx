@@ -7,7 +7,7 @@ const Page = () => {
   const [userData, setUserData] = useState<any>(null);
   
   useEffect(() => {
-    const userRef = ref(database, "user/"); // Reference to "user" node
+    const userRef = ref(database, "trucks/"); // Reference to "user" node
     const unsubscribe = onValue(userRef, (snapshot) => {
       const data = snapshot.val();
       setUserData(data);
@@ -18,7 +18,7 @@ const Page = () => {
 
   return (
     <div>
-      <h1>Realtime User Data,{userData}</h1>
+      <h1>Realtime User Data,{JSON.stringify(userData)}</h1>
     </div>
   );
 };

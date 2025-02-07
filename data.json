@@ -1,0 +1,19 @@
+{
+    "trucks": {
+      "truckId1": {
+        "timestamp": "2025-02-07T12:30:00Z",
+        "fuelConsumption": "12 L/100 km",
+        "totalWeight": 1500,
+        "fillRate": 75,
+        "loadDistribution": "balanced",
+        "gps": { "lat": 36.752887, "lng": 3.042048 },
+        "status": {
+          "loading": true,
+          "inTransit": false,
+          "delivered": false,
+          "returnTrip": false
+        }
+      }
+    }
+  }
+  

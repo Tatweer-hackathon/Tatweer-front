@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
   	extend: {
+		backgroundImage: {
+			'soft-gradient': 'radial-gradient(circle at top left, rgba(160,180,255,0.6), rgba(190,200,230,0.5), rgba(220,225,235,0.4), rgba(245,247,250,0.2))',
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

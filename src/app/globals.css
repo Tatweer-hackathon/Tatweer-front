@@ -7,5 +7,15 @@
 
     --radius: 0.5rem
   }
+  html{
+    scroll-behavior: smooth;
+  }
 }
-
+@layer utilities{
+  .card {
+    display: inline-block;
+    margin-right: 0.5rem;
+    height: 32px;
+    width: 32px;
+  }
+}

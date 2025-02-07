@@ -34,7 +34,7 @@ export function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="w-64 border-r bg-white flex flex-col">
+    <div className="w-64 border-r bg-white flex flex-col bg-soft-gradient">
       <div className="flex-1 flex flex-col gap-1 p-4">
         {navigation.map((item) => {
           const isActive = pathname === item.href

@@ -74,9 +74,9 @@ function StarRating({ rating }: { rating: number }) {
 
 export function ShipmentList() {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 ">
       {/* Available Carriers Table */}
-      <Card>
+      <Card className="bg-white">
         <CardHeader>
           <CardTitle>Available Carriers</CardTitle>
         </CardHeader>
@@ -113,7 +113,7 @@ export function ShipmentList() {
       </Card>
 
       {/* Worked with before Table */}
-      <Card>
+      <Card className="bg-white">
         <CardHeader>
           <CardTitle>Worked with before</CardTitle>
         </CardHeader>

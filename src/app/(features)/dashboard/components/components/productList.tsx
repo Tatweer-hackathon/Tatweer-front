@@ -87,7 +87,7 @@ const filteredEmployees = Array.isArray(products)  ? products.filter((h: Product
   return (
     
     <main>
-      <div className="p-6">
+      <div className="p-6 ">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-xl font-semibold">Product</h3>
         <div className="flex items-center gap-2">
@@ -107,7 +107,7 @@ const filteredEmployees = Array.isArray(products)  ? products.filter((h: Product
       </div>
       <div className="space-y-4">
       <div className="space-y-6">
-        <Card>
+        <Card className="bg-white">
           <CardHeader>
         <CardTitle>Products</CardTitle>
           </CardHeader>

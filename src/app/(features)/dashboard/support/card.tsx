@@ -15,9 +15,9 @@ import { Label } from "src/components/ui/label"
 
 export function CardWithForm() {
   return (
-<Card className="w-[703px] h-[512px]">
+<Card className="w-[703px] h-full bg-white">
     <CardHeader>
-        <CardTitle>Contact Us</CardTitle>
+        <CardTitle className="text-3xl font-bold text-center">Contact Us</CardTitle>
 
     </CardHeader>
     <CardContent>
@@ -43,7 +43,7 @@ export function CardWithForm() {
         </form>
     </CardContent>
     <CardFooter className="">
-        <Button variant="login" className="bg-black text-white w-full rounded-sm" type="submit">Submit</Button>
+        <Button variant="login" className="bg-black text-white w-full rounded-lg" type="submit">Submit</Button>
     </CardFooter>
 </Card>
   )

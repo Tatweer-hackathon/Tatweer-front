@@ -61,8 +61,8 @@ const BillingTable = () => {
     : [];
 
   return (
-    <div className="space-y-6 w-5/6">
-      <Card>
+    <div className="space-y-6 w-5/6 ">
+      <Card className="bg-white">
         <CardHeader>
           <CardTitle>Products</CardTitle>
         </CardHeader>

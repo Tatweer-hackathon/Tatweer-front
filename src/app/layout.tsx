@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-inter`}
+        className={`font-inter bg-soft-gradient`}
         suppressHydrationWarning={true}
       >
         {children}

@@ -1,11 +1,11 @@
-import { ProductHeader } from "./components/productHeaders";
-import { ProductList } from "./components/productList";
+import { ProductHeader } from "../components/components/productHeaders";
+import { ProductList } from "../components/components/productList";
 
 
 
 const ProductsPage = () => {
     return (
-        <div>
+        <div className="">
             <ProductHeader/>
             <ProductList/>
         </div>

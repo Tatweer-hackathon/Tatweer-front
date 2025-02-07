@@ -41,7 +41,7 @@ const billingData: Props[] = [
 
 const BillingsPage = () => {
     return (
-        <div className="flex flex-col gap-10 items-center justify-center w-full">
+        <div className="flex flex-col gap-10 items-center justify-center w-full ">
             <section className="flex flex-col gap-6 justify-start w-full">
             <ShipmentHeader title="Billing"/>
 

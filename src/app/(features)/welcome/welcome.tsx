@@ -37,7 +37,7 @@ export default function Home() {
     }
   ];
   return (
-    <main className="flex min-h-screen flex-col ">
+    <main className="flex min-h-screen flex-col bg-soft-gradient ">
       {/* Hero Section */}
       <section id="section1" className="flex flex-col  items-center justify-center px-4 pt-16 pb-16 text-center">
         <div className="h-auto p-2.5 mt-16  w-full justify-center items-center gap-2.5 inline-flex">

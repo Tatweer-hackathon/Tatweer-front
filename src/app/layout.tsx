@@ -27,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`font-inter`}
+        suppressHydrationWarning={true}
       >
         {children}
       </body>

@@ -3,7 +3,16 @@
 import { Search } from "lucide-react"
 import { Input } from "src/components/ui/input"
 import { Button } from "src/components/ui/button"
-import { BellIcon, UserCircle } from "lucide-react"
+import { BellIcon, UserCircle, User } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "src/components/ui/dropdown-menu"
+import Link from "next/link"
 interface HeaderProps{
   title:string
 }
@@ -24,9 +33,25 @@ export function ShipmentHeader({title}:HeaderProps) {
           <Button variant="ghost" size="icon">
             <BellIcon className="h-5 w-5" />
           </Button>
-          <Button variant="ghost" size="icon">
-            <UserCircle className="h-5 w-5" />
-          </Button>
+          <section className="flex items-center  space-x-2 p-1 rounded-full hover:bg-gray-200">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button  className="relative h-8 w-8 flex justify-center items-center rounded-full bg-white">
+                <User className="h-6 w-6" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="center" className="bg-white shadow-lg">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Link href="/">Log out</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>            
+          </section>
         </div>
       </div>
     </div>

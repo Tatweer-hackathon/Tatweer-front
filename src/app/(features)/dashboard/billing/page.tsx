@@ -1,3 +1,4 @@
+import { ShipmentHeader } from "../shipment-header";
 import { BillingHeader } from "./components/billingHeader";
 import BillingTable from "./components/billingTable";
 import { CardItem } from "./components/card";
@@ -42,7 +43,7 @@ const BillingsPage = () => {
     return (
         <div className="flex flex-col gap-10 items-center justify-center w-full">
             <section className="flex flex-col gap-6 justify-start w-full">
-            <BillingHeader/>
+            <ShipmentHeader title="Billing"/>
 
             <section className="flex justify-start items-center m-10 ">
                 <h1 className="font-bold text-2xl">Billings </h1>

@@ -5,7 +5,7 @@ export default function ShipmentPage() {
   return (
     <div className="flex flex-col h-full">
       <ShipmentHeader title="shipment"/>
-      <ShipmentList />
+      <ShipmentList title="SHIPMENT" />
     </div>
   )
 }

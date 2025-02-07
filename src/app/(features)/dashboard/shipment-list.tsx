@@ -1,6 +1,6 @@
 "use client"
 
-import { Truck, ArrowUpDown, Filter } from "lucide-react"
+import { ArrowUpDown, Filter } from "lucide-react"
 import { Button } from "src/components/ui/button"
 import { Badge } from "src/components/ui/badge"
 import Image from 'next/image';
@@ -106,7 +106,7 @@ export function ShipmentList() {
                   variant={
                     shipment.status === "done" ? "success" : shipment.status === "in-progress" ? "default" : "warning"
                   }
-                  className={`capitalize text-black px-8 py-4 
+                  className={`capitalize text-white px-8 py-4 
                     ${shipment.status === "done" && "bg-green-500"} 
                     ${shipment.status === "fail" && "bg-red-500"}
                      ${shipment.status === "pending" && "bg-blue-500"}

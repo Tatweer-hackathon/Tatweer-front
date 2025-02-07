@@ -4,15 +4,17 @@ import { Search } from "lucide-react"
 import { Input } from "src/components/ui/input"
 import { Button } from "src/components/ui/button"
 import { BellIcon, UserCircle } from "lucide-react"
-
-export function ShipmentHeader() {
+interface HeaderProps{
+  title:string
+}
+export function ShipmentHeader({title}:HeaderProps) {
   return (
     <div className="border-b">
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2">
           <h1 className="text-xl font-semibold">DASHBOARD</h1>
           <span className="text-gray-500">/</span>
-          <h2 className="text-xl text-gray-500">SHIPMENT</h2>
+          <h2 className="text-xl text-gray-500 capitalize">{title}</h2>
         </div>
         <div className="flex items-center gap-4">
           <div className="relative">

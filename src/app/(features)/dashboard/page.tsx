@@ -4,7 +4,7 @@ import { ShipmentList } from "./shipment-list"
 export default function ShipmentPage() {
   return (
     <div className="flex flex-col h-full">
-      <ShipmentHeader />
+      <ShipmentHeader title="shipment"/>
       <ShipmentList />
     </div>
   )

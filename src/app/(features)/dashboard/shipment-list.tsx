@@ -34,6 +34,34 @@ const shipments = [
     amount: "$120",
     status: "pending",
   },
+  {
+    id: "651615455",
+    name: "mondher mondeher",
+    address: "Change change",
+    amount: "$120",
+    status: "done",
+  },
+  {
+    id: "651654856",
+    name: "mondher mondeher",
+    address: "Change change",
+    amount: "$120",
+    status: "pending",
+  },
+  {
+    id: "616154855",
+    name: "mondher mondeher",
+    address: "Change change",
+    amount: "$120",
+    status: "done",
+  },
+  {
+    id: "651615456",
+    name: "mondher mondeher",
+    address: "Change change",
+    amount: "$120",
+    status: "fail",
+  },
 ]
 
 export function ShipmentList() {

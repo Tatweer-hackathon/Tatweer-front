@@ -20,6 +20,7 @@ const navigation = [
   { name: "Carriers", href: "/dashboard/carriers", icon: Truck },
   { name: "Revenue", href: "/dashboard/revenue", icon: DollarSign },
   { name: "Billing", href: "/dashboard/billing", icon: FileText },
+  {name:"Tracking",href:"/dashboard/tracking",icon:Truck},
   { name: "Support", href: "/dashboard/support", icon: HelpCircle },
   { name: "FAQs", href: "/dashboard/faqs", icon: MessageCircle },
 ]

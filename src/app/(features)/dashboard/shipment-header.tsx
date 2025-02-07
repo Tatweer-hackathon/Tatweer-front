@@ -18,7 +18,7 @@ interface HeaderProps{
 }
 export function ShipmentHeader({title}:HeaderProps) {
   return (
-    <div className="border-b">
+    <div className="border-b bg-white">
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2">
           <h1 className="text-xl font-semibold">DASHBOARD</h1>

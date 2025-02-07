@@ -59,6 +59,7 @@
     --chart-5: 27 87% 67%}
   html{
     scroll-behavior: smooth;
+    scrollbar-width:none;
   }
   .dark {
 

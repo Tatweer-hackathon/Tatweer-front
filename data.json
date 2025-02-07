@@ -1,19 +1,36 @@
 {
-    "trucks": {
-      "truckId1": {
-        "timestamp": "2025-02-07T12:30:00Z",
-        "fuelConsumption": "12 L/100 km",
-        "totalWeight": 1500,
-        "fillRate": 75,
-        "loadDistribution": "balanced",
-        "gps": { "lat": 36.752887, "lng": 3.042048 },
-        "status": {
-          "loading": true,
-          "inTransit": false,
-          "delivered": false,
-          "returnTrip": false
-        }
-      }
+  "vehicles": {
+    "DRV-001": {
+      "name": "Ahmed Mohamed",
+      "latitude": 36.7528,
+      "longitude": 3.0422,
+      "status": "in-progress",
+      "address": "123 Main St, Algiers",
+      "amount": "1,234 DZD"
+    },
+    "DRV-002": {
+      "name": "Karim Benzema",
+      "latitude": 35.6969,
+      "longitude": -0.6337,
+      "status": "done",
+      "address": "456 Park Ave, Oran",
+      "amount": "2,567 DZD"
+    },
+    "DRV-003": {
+      "name": "Sarah Ahmed",
+      "latitude": 36.3650,
+      "longitude": 6.6147,
+      "status": "pending",
+      "address": "789 Beach Rd, Constantine",
+      "amount": "3,890 DZD"
+    },
+    "DRV-004": {
+      "name": "Youcef Ali",
+      "latitude": 36.9001,
+      "longitude": 7.7665,
+      "status": "fail",
+      "address": "321 Mountain View, Annaba",
+      "amount": "4,123 DZD"
     }
   }
-  
+}

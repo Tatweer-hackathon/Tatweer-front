@@ -1,4 +1,4 @@
-# Trackini 
+# Trackiny 
 
 An innovative platform built with **Next.js**, **Tailwind CSS**, and **TypeScript** to lower costs and automate the transportation of goods. Our solution streamlines logistics and provides a dedicated driver app for real-time tracking, making the process easier and faster.
 

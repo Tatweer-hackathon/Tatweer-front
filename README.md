@@ -8,7 +8,7 @@ An innovative platform built with **Next.js**, **Tailwind CSS**, and **TypeScrip
 - [Features](#features)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
-- - [Demo](https://www.canva.com/design/DAGeh2ZUciw/FIOMpEwVR1hl8AE-eLH0xw/edit?ui=eyJFIjp7IkE_IjoiSCJ9LCJHIjp7IkEiOnRydWV9fQ)
+- [Demo](https://www.canva.com/design/DAGeh2ZUciw/FIOMpEwVR1hl8AE-eLH0xw/edit?ui=eyJFIjp7IkE_IjoiSCJ9LCJHIjp7IkEiOnRydWV9fQ)
 
 ## Overview
 

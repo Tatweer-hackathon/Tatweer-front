@@ -12,11 +12,12 @@ import {
 } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
 import { Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react";
-import axios from "axios";''
+import axios from "axios";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
-// Zod schema for form validation
 const formSchema = z
   .object({
     email: z
@@ -32,7 +33,6 @@ const formSchema = z
     confirmPassword: z.string().min(1, "Confirm Password is required"),
     fullName: z.string().min(1, "Full Name is required").max(50),
     phoneNumber: z.string().min(1, "Phone Number is required").max(50),
-    //NOTE: maybe add admin later on
     type: z.enum(["Company", "Student"]),
   })
   .refine((val) => val.password === val.confirmPassword, {
@@ -40,26 +40,26 @@ const formSchema = z
     path: ["confirmPassword"],
   });
 
-// Custom input field component
- const buttons = [
-    {
-      label: "Transportater",
-      className:
-        "1/2  bg-black rounded-xl border-transparent py-5 px-8  text-white hover:ease-in-out font-bold focus:bg-[#446de2]",
-    },
-    {
-      label: "Company",
-      className:
-        "bg-black rounded-xl border-transparent py-5 px-8 text-white hover:ease-in-out font-bold focus:bg-[#446de2]",
-    },
-  ];
-
+const buttons = [
+  {
+    label: "Transportater",
+    type: "transport",
+    className:
+      "1/2  bg-black rounded-xl border-transparent py-5 px-8  text-white hover:ease-in-out font-bold focus:bg-[#446de2]",
+  },
+  {
+    label: "Company",
+    type: "company",
+    className:
+      "bg-black rounded-xl border-transparent py-5 px-8 text-white hover:ease-in-out font-bold focus:bg-[#446de2]",
+  },
+];
 
 type BaseProps = {
   name: string;
   placeholder: string;
   icon: React.ReactNode;
-  control: any; // Replace 'any' with the appropriate react-hook-form type (e.g., Control<FieldValues>)
+  control: any;
   toggle?: boolean;
 };
 
@@ -83,7 +83,6 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
   toggle = false,
   ...rest
 }) => {
-  // Local state only used when toggle is enabled (for password fields)
   const [show, setShow] = useState(false);
   const inputType = toggle ? (show ? "text" : "password") : type;
 
@@ -95,8 +94,6 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
         <FormItem>
           <FormControl>
             <div className="relative">
-              
-              {/* Left icon */}
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 {icon}
               </span>
@@ -106,7 +103,6 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
                 {...field}
                 className="pl-10 pr-10"
               />
-              {/* Toggle icon for password fields */}
               {toggle && (
                 <span
                   onClick={() => setShow(!show)}
@@ -129,27 +125,72 @@ const CustomInputField: React.FC<CustomInputFieldProps> = ({
 };
 
 const SignUpForm = () => {
+  const [userType, setUserType] = useState<"transport" | "company">("transport");
+  
   const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        email: "",
-        password: "",
-        confirmPassword: "",
-        fullName: "",
-        phoneNumber: "",
-      },
-    });
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      fullName: "",
+      phoneNumber: "",
+    },
+  });
 
-  // Array of field definitions
+  const signUpMutation = useMutation({
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
+      let payload;
+      if (userType === "company") {
+        payload = {
+          email: values.email,
+          password: values.password,
+          type: userType,
+          name: values.fullName,
+          phoneNumber: values.phoneNumber,
+          [userType]: {},
+        };
+      } else if (userType === "transport") {
+        payload = {
+          email: values.email,
+          password: values.password,
+          type: userType,
+          name: values.fullName,
+          phoneNumber: values.phoneNumber,
+          [userType]: {
+            trucks: [],
+          },
+        };
+      }
+      const api = axios.create({
+        baseURL: 'http://localhost:8000'  // or whatever your backend URL is
+      });
+      try {
+
+        return await api.post('/Auth/signup', payload);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    onSuccess: (data) => {
+      toast.success("Signed up successfully!");
+      // Add any additional success handling (e.g., redirect)
+    },
+    onError: (error) => {
+      toast.error(error.response?.data?.message || "An error occurred during sign up");
+      console.error("Sign up error:", error);
+    },
+  });
+
   const fields: CustomInputFieldProps[] = [
     {
-        name: "email",
-        placeholder: "E-mail",
-        icon: <Mail className="h-5 w-auto opacity-45 " />,
-        control: form.control,
-        type: "text",
-        toggle: false,
-      },
+      name: "email",
+      placeholder: "E-mail",
+      icon: <Mail className="h-5 w-auto opacity-45 " />,
+      control: form.control,
+      type: "text",
+      toggle: false,
+    },
     {
       name: "fullName",
       placeholder: "Full Name",
@@ -180,12 +221,10 @@ const SignUpForm = () => {
       control: form.control,
       toggle: true,
     },
-   
   ];
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // You can add your axios POST request here
+    signUpMutation.mutate(values);
   }
 
   return (
@@ -193,38 +232,39 @@ const SignUpForm = () => {
       <div className="bg-white p-5 sm:p-10 md:p-12 rounded-lg shadow-lg h-md mx-4">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <ul className="flex justify-center items-center flex-col">
+              <h1 className="text-4xl font-bold mb-4">Sign up</h1>
+              <ul className="flex justify-center items-center gap-3">
+                {buttons.map((button, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    className={`${button.className} ${
+                      userType === button.type ? "bg-[#446de2]" : ""
+                    }`}
+                    onClick={() => setUserType(button.type as "transport" | "company")}
+                  >
+                    {button.label}
+                  </button>
+                ))}
+              </ul>
+            </ul>
 
-    <ul className="flex justify-center items-center flex-col  ">
-    <h1 className="text-4xl font-bold mb-4">Sign in</h1>
-    <ul className="flex justify-center items-center gap-3 ">
-    {
-        
-        buttons.map((button, index) => (
-        <button
-            key={index}
-            type={'button'}
-            className={button.className}
-        >
-            {button.label}
-        </button>
-        ))
-    }
-</ul>
-    </ul>
-                {/* Map over the fields array to render each input */}
-                {fields.map((field) => (
+            {fields.map((field) => (
               <CustomInputField key={field.name} {...field} />
             ))}
 
             <button
               type="submit"
               className="w-full bg-primary rounded-full py-4 text-white hover:opacity-85 hover:ease-in-out"
+              disabled={signUpMutation.isPending}
+              onClick={onSubmit}
             >
-              Sign In
+              {signUpMutation.isPending ? "Signing Up..." : "Sign Up"}
             </button>
-            Don&apos;t have an account ?&nbsp;
-              <Link href="/signin" className="text-[#446de2] hover:underline ">
-                 Sign in
+            Already have an account?&nbsp;
+            <Link href="/signin" className="text-[#446de2] hover:underline">
+              Sign in
             </Link>
           </form>
         </Form>

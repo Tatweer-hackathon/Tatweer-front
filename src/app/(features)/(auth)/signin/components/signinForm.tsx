@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import Googgle from "./google";
 import { UserState } from "src/lib/atom";
 import { useSetAtom } from "jotai";
+import { serialize } from "cookie";
 
 
 
@@ -29,6 +30,7 @@ const formSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email").max(50),
   password: z.string().min(1, "Password is required").max(50),
   name: z.string().min(1, "Name is required").max(50),
+  type: z.enum(["company", "transport"]),
 });
 
 const SignForm: React.FC = () => {
@@ -38,6 +40,7 @@ const SignForm: React.FC = () => {
       email: "",
       password: "",
       name: "",
+      type:"company"
     },
   });
 
@@ -66,19 +69,34 @@ const SignForm: React.FC = () => {
       
       return await api.post(`/Auth/login`, payload);
     },
-    onSuccess: (response) => {
-      const data = response.data;
-      setUser(data.type);
+    onSuccess: (response) => {;
+      const typeOfUser = response.data.user.type;
+
+      const { accessToken, refreshToken } = response.data;
+      document.cookie = serialize('accessToken', accessToken, {
+        httpOnly: false,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000) 
+      });
+      document.cookie = serialize('refreshToken', refreshToken, {
+        httpOnly: false,
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) 
+
+      });
+      document.cookie = serialize('userType',typeOfUser , {
+        httpOnly: false,
+        expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) 
+
+      });
+
       toast.success("Signed in successfully!");
 
-      if (data.token) {
-        localStorage.setItem("authToken", data.token);
+      if (response.data.token) {
+        localStorage.setItem("authToken", response.data.token);
       }
       router.push("/dashboard");
     },
     onError: (error) => {
       toast.error((error as any).response?.data?.message || "An error occurred. Check your network.");
-      console.error("Sign-in error:", error);
     },
   });
 

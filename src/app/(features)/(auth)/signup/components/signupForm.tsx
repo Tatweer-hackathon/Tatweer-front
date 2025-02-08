@@ -27,7 +27,7 @@ const formSchema = z
     confirmPassword: z.string().min(1, "Confirm Password is required"),
     fullName: z.string().min(1, "Full Name is required").max(50),
     phoneNumber: z.string().min(1, "Phone Number is required").max(50),
-    type: z.enum(["Company", "Student"]),
+    type: z.enum(["company", "transport"]),
   })
   .refine((val) => val.password === val.confirmPassword, {
     message: "Passwords do not match",
@@ -38,7 +38,7 @@ type FormSchemaType = z.infer<typeof formSchema>; // ✅ Extract type from schem
 
 const SignUpForm: React.FC = () => {
   // ✅ Explicit type annotation
-  const [userType, setUserType] = useState<"transport" | "company">("transport");
+  const [userType, setUserType] = useState<"transport" | "company">("company");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const router=useRouter();
@@ -50,7 +50,7 @@ const SignUpForm: React.FC = () => {
       confirmPassword: "",
       fullName: "",
       phoneNumber: "",
-      type: "Company",
+      type: "company",
     },
   });
 
@@ -71,12 +71,13 @@ const SignUpForm: React.FC = () => {
 
         return response.data;
       } catch (error) {
-        console.error("API Error:", error);
-        throw error;
+        // throw error.response.data;
+        console.log(error);
       }
     },
     onSuccess: (response) => {
             const { data } = response.data;
+            console.log("Data:", data);
             toast.success("Signed in successfully!");
       
             if (data.token) {
@@ -107,7 +108,7 @@ const SignUpForm: React.FC = () => {
                   className={`py-3 px-6 rounded-xl text-white font-bold transition ${userType === type ? "bg-[#446de2]" : "bg-black"}`}
                   onClick={() => setUserType(type)}
                 >
-                  {type === "transport" ? "Transporter" : "Company"}
+                  {/* {type === "transport" ? "Transporter" : "Company"} */}
                 </button>
               ))}
             </div>

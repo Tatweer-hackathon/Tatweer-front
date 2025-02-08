@@ -1,6 +1,6 @@
 "use client"
-
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import {
   LayoutDashboard,
@@ -11,9 +11,10 @@ import {
   HelpCircle,
   MessageCircle,
   Settings,
-  LogOut,User,Handshake
+  LogOut,User,Handshake,ReceiptText
 } from "lucide-react"
 import { useUserStore } from "src/lib/zustand";
+
 
 
 const staticNavigation = [
@@ -27,8 +28,13 @@ const bottomNavigation = [
 
 export function Sidebar() {
 
-  const { user } = useUserStore();
-  const navigation = user === "company" 
+  const user = document.cookie
+  .split(';')
+  .find((cookie: string) => cookie.includes('userType'))
+  ?.split('=')[1];
+
+
+  const navigation = (user == "company") 
     ? [
         { name: "Shipments", href: "/dashboard", icon: LayoutDashboard },
         { name: "Products", href: "/dashboard/products", icon: Package },
@@ -36,6 +42,7 @@ export function Sidebar() {
         { name: "Revenue", href: "/dashboard/revenue", icon: DollarSign },
         { name: "Billing", href: "/dashboard/billing", icon: FileText },
         { name: "Tracking", href: "/dashboard/tracking", icon: Truck },
+        { name: "Transport", href: "/dashboard/transp", icon: ReceiptText },
       ]
     : [
         { name: "Drivers", href: "/dashboard/drivers", icon: User },
@@ -51,7 +58,8 @@ export function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="w-64 border-r bg-white flex flex-col bg-soft-gradient">
+    <div className="w-64 border-r bg-white flex flex-col bg-soft-gradient items-start">
+      <Image src="/logo.svg" alt="Trackini Logo" width={200} height={200} className="m-5" priority />
       <div className="flex-1 flex flex-col gap-1 p-4">
         {navigation.map((item) => {
           const isActive = pathname === item.href

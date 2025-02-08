@@ -4,7 +4,6 @@ import Googgle from "./components/google";
 import SignUpForm from "./components/signupForm";
 
 const Page = () => {
-  console.log("hi");
   return (
     <div className="flex justify-evenly items-center flex-row-reverse h-screen  w-screen">
       <aside className="bg-[#3461e0]  w-1/2 h-full flex justify-center items-center">

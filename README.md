@@ -8,6 +8,8 @@ An innovative platform built with **Next.js**, **Tailwind CSS**, and **TypeScrip
 - [Features](#features)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
+- - [Demo](https://www.canva.com/design/DAGeh2ZUciw/FIOMpEwVR1hl8AE-eLH0xw/edit?ui=eyJFIjp7IkE_IjoiSCJ9LCJHIjp7IkEiOnRydWV9fQ)
+
 ## Overview
 
 Our platform is designed to modernize and simplify the transportation of goods. By automating key processes, we reduce operational costs while enhancing efficiency and reliability. The driver app enables real-time tracking, ensuring drivers have the tools they need to manage their routes and deliveries effectively.
@@ -29,7 +31,6 @@ Our platform is designed to modernize and simplify the transportation of goods. 
 - **[Tailwind CSS](https://tailwindcss.com/):** A utility-first CSS framework for rapid UI development.
 - **[TypeScript](https://www.typescriptlang.org/):** A strongly typed programming language that builds on JavaScript.
 - [Docs of route optimisation](https://docs.google.com/document/d/1TYAKwZyRE6Gn2TBBFkzqz6clljTB4PdDCwDAsbZ0Ovw/edit?usp=sharing)
-- [Demo](https://www.canva.com/design/DAGeh2ZUciw/FIOMpEwVR1hl8AE-eLH0xw/edit?ui=eyJFIjp7IkE_IjoiSCJ9LCJHIjp7IkEiOnRydWV9fQ)
 
 
 

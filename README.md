@@ -28,7 +28,8 @@ Our platform is designed to modernize and simplify the transportation of goods. 
 - **[Next.js](https://nextjs.org/):** A React framework for building scalable, high-performance web applications.
 - **[Tailwind CSS](https://tailwindcss.com/):** A utility-first CSS framework for rapid UI development.
 - **[TypeScript](https://www.typescriptlang.org/):** A strongly typed programming language that builds on JavaScript.
-- [Docs of route optimisation](https://docs.google.com/document/d/1TYAKwZyRE6Gn2TBBFkzqz6clljTB4PdDCwDAsbZ0Ovw/edit?usp=sharing) 
+- [Docs of route optimisation](https://docs.google.com/document/d/1TYAKwZyRE6Gn2TBBFkzqz6clljTB4PdDCwDAsbZ0Ovw/edit?usp=sharing)
+- [Demo](https://www.canva.com/design/DAGeh2ZUciw/FIOMpEwVR1hl8AE-eLH0xw/edit?ui=eyJFIjp7IkE_IjoiSCJ9LCJHIjp7IkEiOnRydWV9fQ)
 
 
 

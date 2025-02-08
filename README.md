@@ -8,11 +8,6 @@ An innovative platform built with **Next.js**, **Tailwind CSS**, and **TypeScrip
 - [Features](#features)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
 ## Overview
 
 Our platform is designed to modernize and simplify the transportation of goods. By automating key processes, we reduce operational costs while enhancing efficiency and reliability. The driver app enables real-time tracking, ensuring drivers have the tools they need to manage their routes and deliveries effectively.

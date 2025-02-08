@@ -36,9 +36,9 @@ export function ShipmentHeader({title}:HeaderProps) {
           <section className="flex items-center  space-x-2 p-1 rounded-full hover:bg-gray-200">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button  className="relative h-8 w-8 flex justify-center items-center rounded-full bg-white">
+              <Button  className="relative h-8 w-8 flex justify-center items-center rounded-full bg-white">
                 <User className="h-6 w-6" />
-              </button>
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="bg-white shadow-lg">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>

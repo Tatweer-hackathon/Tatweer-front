@@ -16,7 +16,6 @@ import {
 import { useUserStore } from "src/lib/zustand";
 
 
-
 const staticNavigation = [
   { name: "Support", href: "/dashboard/support", icon: HelpCircle },
   { name: "FAQs", href: "/dashboard/faqs", icon: MessageCircle },

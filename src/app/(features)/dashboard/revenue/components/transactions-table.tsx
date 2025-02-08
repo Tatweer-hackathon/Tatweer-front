@@ -46,11 +46,11 @@ export function TransactionsTable() {
   return (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className="text-left">
           <TableHead>Date</TableHead>
           <TableHead>Description</TableHead>
           <TableHead>Type</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+          <TableHead>Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

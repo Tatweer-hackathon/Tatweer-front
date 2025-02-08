@@ -1,68 +1,88 @@
-import * as React from "react"
-import Image from "next/image"
-import { Card, CardContent, CardHeader } from "src/components/ui/card"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "src/components/ui/carousel"
-const usersArray = [
-    { user: "Yasser Tech" },
-    { user: "Aymen Dz" },
-    { user: "Mohamed moh" },
-    { user: "Mondher" },
-    { user: "Amine" },
-    { user: "Zakria" },
+import { Card } from "src/components/ui/card"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "src/components/ui/carousel"
+import { Quote } from "lucide-react"
+
+const testimonials = [
+  {
+    name: "Aymen Dz",
+    feedback:
+      "I'm impressed with the features and user-friendly interface. It's become an essential tool for my daily tasks.",
+    image: "/placeholder.svg",
+  },
+//   {
+//     name: "Mohamed moh",
+//     feedback: "The customer support is outstanding. They quickly resolved my issues and improved my experience.",
+//     image: "/placeholder.svg",
+//   },
+//   {
+//     name: "Mondher",
+//     feedback: "This solution has transformed how our team collaborates. It's been a game-changer for our projects.",
+//     image: "/placeholder.svg",
+//   },
+//   {
+//     name: "Amine",
+//     feedback: "I appreciate the regular updates and new features. The developers clearly listen to user feedback.",
+//     image: "/placeholder.svg",
+//   },
+//   {
+//     name: "Zakria",
+//     feedback: "The app's performance is exceptional. It handles complex tasks with ease and speed.",
+//     image: "/placeholder.svg",
+//   },
 ]
 
 export default function CarouselDemo() {
-    return (
-        <Carousel className="w-[900px] h-[334px] max-w-none my-8">
-            <CarouselContent className="w-full ">
-                {usersArray.map((userObj, index) => (
-                    <CarouselItem key={index} className="w-[900px] h-[334px]">
-                        <div className="p-1 w-full ">
-                            <Card className="    flex flex-col relative">
-                                {/* Icon at the top */}
-                                <CardHeader className="flex justify-start">
-                                    <Image src="quoted.svg" alt="" width={36} height={36} />
-                                </CardHeader>
-    
-                                {/* Row containing two columns: feedback text and profile image */}
-                                <CardContent className="flex flex-row items-center justify-between  relative">
-                                    {/* Left Column: Feedback Text */}
-                                    <div className="w-2/3 pr-4">
-                                        <span className="text-4xl font-semibold">{userObj.user}</span>
-                                        <div className="h-[149px] text-black text-[28px] font-normal ">This app helped  
-                                             me brrrrrrrrrrrrrrrrrrrrrrrrr erbrtebw wefdw f wd fwdfwdf w dwf wd fwf wdf wdf wdf wdf wdf wdf wd wd wdf wd wdf </div>
-                                    </div>
-    
-                                    {/* Right Column: User Profile Photo (Shifted to the right) */}
-                                    <div className="w-1/3 flex justify-end pr-6"> {/* Added `pr-6` for spacing */}
-                                        <img 
-                                            src={"image.png"} 
-                                            alt="User Profile" 
-                                            width={120} 
-                                            height={120} 
-                                            className="rounded-full"
-                                        />
-                                    </div>
-                                </CardContent>
-    
-                                {/* Background at the bottom only */}
-                                <div className="absolute bottom-0 left-11 right-1 w-[90%] center h-[270px]  bg-[#cfecff]/40 "></div>
-                            </Card>
-                        </div>
-                    </CarouselItem>
-                ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-        </Carousel>
-    )
+  return (
+    <div className="w-full max-w-[900px] mx-auto relative">
+      <Carousel
+        opts={{
+          align: "center",
+          loop: true,
+          slidesToScroll: 1
+        }}
+        className="w-full"
+      >
+        <CarouselContent>
+          {testimonials.map((testimonial, index) => (
+            <CarouselItem key={index}>
+              <Card className="bg-[#F5F9FF] border-none p-6 min-h-[334px]">
+                {/* Quote Icon */}
+                <div className="mb-4">
+                  <Quote className="w-8 h-8 text-gray-400"  /><div className="mb-4">
+  <Quote className="w-8 h-8 text-gray-400" />
+</div>
+                </div>
 
-    
-    }
-    
+                <div className="flex flex-col h-full">
+                  {/* Content */}
+                  <div className="flex-grow">
+                    <h3 className="text-2xl font-semibold mb-4">{testimonial.name}</h3>
+                    <p className="text-gray-600 text-lg leading-relaxed">{testimonial.feedback}</p>
+                  </div>
+
+                  {/* Profile Image */}
+                  <div className="flex justify-end mt-4">
+                    {/* <img
+                      src={testimonial.image || "/placeholder.svg"}
+                      alt={`${testimonial.name} profile`}
+                      className="w-16 h-16 rounded-full object-cover"
+                    /> */}
+                  </div>
+                </div>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+
+        {/* Navigation Buttons */}
+        <div className="absolute -left-12 top-1/2 -translate-y-1/2">
+          <CarouselPrevious className="h-12 w-12" />
+        </div>
+        <div className="absolute -right-12 top-1/2 -translate-y-1/2">
+          <CarouselNext className="h-12 w-12" />
+        </div>
+      </Carousel>
+    </div>
+  )
+}
+

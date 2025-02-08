@@ -6,30 +6,20 @@ import { useEffect, useState } from 'react'
 import { Input } from "src/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "src/components/ui/table"
 import { Card, CardContent, CardHeader, CardTitle } from "src/components/ui/card"
-import axios from 'src/api/auth'
-import { useQuery } from '@tanstack/react-query'
 import { PencilLine, Trash2 } from 'lucide-react'
+import { ProductModal } from "../../products/productModel"
 
 
-interface Product {
+interface  Product  {
   _id: string;
   name: string;
   type: string;
-  additionDate: Date;
-  available: 'available' | 'unavailable';
-
+  available: string;
+  additionDate?: Date;
 }
 
 
-
-const fetchData = async () => {
-  const response = await axios.get('/employees')
-  return response.data
-}
-
- 
-
-const products: Product[] = [
+const initialProducts: Product[] = [
   {
     _id: "1",
     name: "Electronic Device",
@@ -56,30 +46,22 @@ const products: Product[] = [
 export function ProductList() {
 
   const [searchTerm, setSearchTerm] = useState('')
-  const [productState, setProductState] = useState<Product[]>([])
-  const [error, setError] = useState('')
-  // const [isShowing, setIsShowingForm] = useAtom(isVisible);
-//  const setUpdateEmployee= useSetAtom(updateEmpolyeeAtom)
-
-
-// const {data , isLoading, isError} =  useQuery({ queryKey:['employees'], queryFn: fetchEmployees   });
+  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
-// useEffect(() => {
-//  if (data) {
-//    setEmployees(data)
-//  }
-// }, [data])
+  
+  const handleAddProduct = (productData: Product) => {
+    const newProduct: Product = {
+      _id: Date.now().toString(),
+      name: productData.name,
+      type: 'Default',
+      additionDate: new Date(),
+      available: 'available'
+    };
+    setProducts([...products, newProduct]);
+  };
 
-// if (isLoading) {
-//  return <Alert severity="info">Loading...</Alert>
-// }
-// if (isError) {
-//  return <Alert severity="error">Error fetching data</Alert>
-// } 
-
-
-
-const filteredEmployees = Array.isArray(products)  ? products.filter((h: Product) => 
+const filtered = Array.isArray(products)  ? products.filter((h: Product) => 
    h.name.toLowerCase().includes(searchTerm.toLowerCase().trim()) || 
    h.type.toLowerCase().includes(searchTerm.toLowerCase().trim()) 
 ) : [];
@@ -114,12 +96,13 @@ const filteredEmployees = Array.isArray(products)  ? products.filter((h: Product
           <CardContent>
         <div className="flex justify-between mb-4">
           <Input
-            placeholder="Rechercher un hébergement..."
+            placeholder="Rechercher un produit..."
             value={searchTerm}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
             className="max-w-sm p-3"
           />
-          <Button>Ajouter un Hébergement</Button>
+          <Button onClick={() => setIsModalOpen(true)}>Ajouter un produit</Button>
+        
         </div>
         <Table>
           <TableHeader>
@@ -132,11 +115,11 @@ const filteredEmployees = Array.isArray(products)  ? products.filter((h: Product
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredEmployees && filteredEmployees.map((item: Product) => (
+            {filtered && filtered.map((item: Product) => (
           <TableRow key={item._id}>
             <TableCell className="text-center">{item.name}</TableCell>
             <TableCell className="text-center" >{item.type}</TableCell>
-            <TableCell className="text-center">{new Date(item.additionDate).toLocaleDateString()}</TableCell>
+            <TableCell className="text-center">{item.additionDate ? new Date(item.additionDate).toLocaleDateString() : '-'}</TableCell>
             <TableCell className="text-center">{item.available}</TableCell>
             <TableCell className="space-x-2 flex justify-end gap-4">
               <PencilLine className="cursor-pointer"/> 
@@ -149,9 +132,14 @@ const filteredEmployees = Array.isArray(products)  ? products.filter((h: Product
           </CardContent>
         </Card>
       </div>
-             
+     
              </div>
     </div>
+    <ProductModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleAddProduct}
+        />
     </main>
     
   )

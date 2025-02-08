@@ -1,7 +1,9 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import React from "react";
+import Providers from "src/app/(features)/(auth)/signin/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,12 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`font-inter bg-soft-gradient`}
-        suppressHydrationWarning={true}
-      >
-        {children}
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="font-sans bg-soft-gradient" suppressHydrationWarning={true}>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

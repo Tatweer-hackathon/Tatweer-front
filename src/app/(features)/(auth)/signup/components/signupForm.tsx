@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,7 +7,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
@@ -17,19 +16,12 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-
+import { useRouter } from "next/navigation";
+// ✅ Define form schema with Zod
 const formSchema = z
   .object({
-    email: z
-      .string()
-      .min(1, "Email is required")
-      .email("Invalid email address")
-      .max(50),
-    password: z
-      .string()
-      .min(1, "Password is required")
-      .min(8, "Password must be at least 8 characters long")
-      .max(50),
+    email: z.string().min(1, "Email is required").email("Invalid email address").max(50),
+    password: z.string().min(8, "Password must be at least 8 characters long").max(50),
     confirmPassword: z.string().min(1, "Confirm Password is required"),
     fullName: z.string().min(1, "Full Name is required").max(50),
     phoneNumber: z.string().min(1, "Phone Number is required").max(50),
@@ -40,94 +32,15 @@ const formSchema = z
     path: ["confirmPassword"],
   });
 
-const buttons = [
-  {
-    label: "Transportater",
-    type: "transport",
-    className:
-      "1/2  bg-black rounded-xl border-transparent py-5 px-8  text-white hover:ease-in-out font-bold focus:bg-[#446de2]",
-  },
-  {
-    label: "Company",
-    type: "company",
-    className:
-      "bg-black rounded-xl border-transparent py-5 px-8 text-white hover:ease-in-out font-bold focus:bg-[#446de2]",
-  },
-];
+type FormSchemaType = z.infer<typeof formSchema>; // ✅ Extract type from schema
 
-type BaseProps = {
-  name: string;
-  placeholder: string;
-  icon: React.ReactNode;
-  control: any;
-  toggle?: boolean;
-};
-
-type TextOrPasswordInputProps = BaseProps & {
-  type?: "text" | "password";
-};
-
-type OptionsInputProps = BaseProps & {
-  type: "options";
-  items: string[];
-};
-
-type CustomInputFieldProps = TextOrPasswordInputProps | OptionsInputProps;
-
-const CustomInputField: React.FC<CustomInputFieldProps> = ({
-  name,
-  placeholder,
-  icon,
-  control,
-  type = "text",
-  toggle = false,
-  ...rest
-}) => {
-  const [show, setShow] = useState(false);
-  const inputType = toggle ? (show ? "text" : "password") : type;
-
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormControl>
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                {icon}
-              </span>
-              <Input
-                type={inputType}
-                placeholder={placeholder}
-                {...field}
-                className="pl-10 pr-10"
-              />
-              {toggle && (
-                <span
-                  onClick={() => setShow(!show)}
-                  className="absolute inset-y-0 right-0 flex items-center pr-4 bg-transparent hover:opacity-45 cursor-pointer"
-                >
-                  {!show ? (
-                    <EyeOff size={24} className="opacity-50" />
-                  ) : (
-                    <Eye size={24} className="opacity-50" />
-                  )}
-                </span>
-              )}
-            </div>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-const SignUpForm = () => {
+const SignUpForm: React.FC = () => {
+  // ✅ Explicit type annotation
   const [userType, setUserType] = useState<"transport" | "company">("transport");
-  
-  const form = useForm<z.infer<typeof formSchema>>({
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+  const router=useRouter();
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -135,142 +48,121 @@ const SignUpForm = () => {
       confirmPassword: "",
       fullName: "",
       phoneNumber: "",
+      type: "Company",
     },
   });
 
   const signUpMutation = useMutation({
-    mutationFn: async (values: z.infer<typeof formSchema>) => {
-      let payload;
-      if (userType === "company") {
-        payload = {
-          email: values.email,
-          password: values.password,
-          type: userType,
-          name: values.fullName,
-          phoneNumber: values.phoneNumber,
-          [userType]: {},
-        };
-      } else if (userType === "transport") {
-        payload = {
-          email: values.email,
-          password: values.password,
-          type: userType,
-          name: values.fullName,
-          phoneNumber: values.phoneNumber,
-          [userType]: {
-            trucks: [],
-          },
-        };
-      }
-      const api = axios.create({
-        baseURL: 'http://localhost:8000'  // or whatever your backend URL is
-      });
-      try {
+    mutationFn: async (values: FormSchemaType) => {
+      const payload =
+        userType === "company"
+          ? { email: values.email, password: values.password, type: userType, name: values.fullName, [userType]: {} }
+          : { email: values.email, password: values.password, type: userType, [userType]: { trucks: [] }, name: values.fullName };
 
-        return await api.post('/Auth/signup', payload);
-      } catch (e) {
-        console.log(e);
+      console.log("Payload:", payload);
+
+      try {
+        const api=axios.create({
+          baseURL:"/api",
+        })
+        const response = await api.post("/Auth/signup", payload);
+
+        return response.data;
+      } catch (error) {
+        console.error("API Error:", error);
+        throw error;
       }
     },
-    onSuccess: (data) => {
-      toast.success("Signed up successfully!");
-      // Add any additional success handling (e.g., redirect)
-    },
-    onError: (error) => {
+    onSuccess: (response) => {
+            const { data } = response.data;
+            toast.success("Signed in successfully!");
+      
+            if (data.token) {
+              localStorage.setItem("authToken", data.token);
+            }
+            router.push("/dashboard");
+      toast.success("Signed up successfully!")},
+    onError: (error: any) => {
       toast.error(error.response?.data?.message || "An error occurred during sign up");
-      console.error("Sign up error:", error);
     },
   });
 
-  const fields: CustomInputFieldProps[] = [
-    {
-      name: "email",
-      placeholder: "E-mail",
-      icon: <Mail className="h-5 w-auto opacity-45 " />,
-      control: form.control,
-      type: "text",
-      toggle: false,
-    },
-    {
-      name: "fullName",
-      placeholder: "Full Name",
-      icon: <User className="h-5 w-auto opacity-45" />,
-      control: form.control,
-      type: "text",
-      toggle: false,
-    },
-    {
-      name: "phoneNumber",
-      placeholder: "Phone Number",
-      icon: <Phone className="h-5 w-auto opacity-45" />,
-      control: form.control,
-      type: "text",
-      toggle: false,
-    },
-    {
-      name: "password",
-      placeholder: "Password",
-      icon: <Lock className="h-5 w-5 opacity-45" />,
-      control: form.control,
-      toggle: true,
-    },
-    {
-      name: "confirmPassword",
-      placeholder: "Confirm Password",
-      icon: <Lock className="h-5 w-5 opacity-45" />,
-      control: form.control,
-      toggle: true,
-    },
-  ];
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    signUpMutation.mutate(values);
-  }
+  const onSubmit = (values: FormSchemaType) => signUpMutation.mutate(values);
 
   return (
     <div className="flex justify-center items-center">
-      <div className="bg-white p-5 sm:p-10 md:p-12 rounded-lg shadow-lg h-md mx-4">
+      <div className="bg-white p-5 sm:p-10 w-[500px] md:p-12 rounded-lg shadow-lg h-md mx-4">
         <Form {...form}>
+            <h1 className="text-4xl font-bold text-center">Sign up</h1>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <ul className="flex justify-center items-center flex-col">
-              <h1 className="text-4xl font-bold mb-4">Sign up</h1>
-              <ul className="flex justify-center items-center gap-3">
-                {buttons.map((button, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    className={`${button.className} ${
-                      userType === button.type ? "bg-[#446de2]" : ""
-                    }`}
-                    onClick={() => setUserType(button.type as "transport" | "company")}
-                  >
-                    {button.label}
-                  </button>
-                ))}
-              </ul>
-            </ul>
 
-            {fields.map((field) => (
-              <CustomInputField key={field.name} {...field} />
+            {/* User Type Selection */}
+            <div className="flex justify-center gap-3">
+              {(["transport", "company"] as const).map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  className={`py-3 px-6 rounded-xl text-white font-bold transition ${userType === type ? "bg-[#446de2]" : "bg-black"}`}
+                  onClick={() => setUserType(type)}
+                >
+                  {type === "transport" ? "Transporter" : "Company"}
+                </button>
+              ))}
+            </div>
+
+            {/* Input Fields */}
+            {[
+              { name: "email", placeholder: "E-mail", icon: <Mail /> },
+              { name: "fullName", placeholder: "Full Name", icon: <User /> },
+              { name: "phoneNumber", placeholder: "Phone Number", icon: <Phone /> },
+            ].map(({ name, placeholder, icon }) => (
+              <FormField key={name} name={name as keyof FormSchemaType} control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="relative">
+                      <span className="absolute left-3 top-3 text-gray-500">{icon}</span>
+                      <Input {...field} placeholder={placeholder} className="pl-10 pr-3" />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
             ))}
 
-            <button
-              type="submit"
-              className="w-full bg-primary rounded-full py-4 text-white hover:opacity-85 hover:ease-in-out"
-              disabled={signUpMutation.isPending}
-              onClick={onSubmit}
-            >
+            {/* Password Fields */}
+            {([
+              { name: "password", placeholder: "Password", show: showPassword, setShow: setShowPassword },
+              { name: "confirmPassword", placeholder: "Confirm Password", show: showConfirmPassword, setShow: setShowConfirmPassword },
+            ] as const).map(({ name, placeholder, show, setShow }) => (
+              <FormField key={name} name={name as keyof FormSchemaType} control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="relative">
+                      <span className="absolute left-3 top-3 text-gray-500"><Lock /></span>
+                      <Input {...field} type={show ? "text" : "password"} placeholder={placeholder} className="pl-10 flex items-center justify-center pr-10" />
+                      <span onClick={() => setShow(!show)} className="absolute right-3 top-3 cursor-pointer">
+                        {show ? <Eye size={20} /> : <EyeOff size={20} />}
+                      </span>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+            ))}
+
+            {/* Submit Button */}
+            <button type="submit" className="w-full bg-primary rounded-full py-4 text-white hover:opacity-85" disabled={signUpMutation.isPending}>
               {signUpMutation.isPending ? "Signing Up..." : "Sign Up"}
             </button>
-            Already have an account?&nbsp;
-            <Link href="/signin" className="text-[#446de2] hover:underline">
-              Sign in
-            </Link>
+
+            <p className="text-center">
+              Already have an account? <Link href="/signin" className="text-[#446de2] hover:underline">Sign in</Link>
+            </p>
           </form>
         </Form>
       </div>
+
     </div>
   );
 };
-
 export default SignUpForm;

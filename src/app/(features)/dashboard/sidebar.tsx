@@ -36,6 +36,8 @@ export function Sidebar() {
         { name: "Revenue", href: "/dashboard/revenue", icon: DollarSign },
         { name: "Billing", href: "/dashboard/billing", icon: FileText },
         { name: "Tracking", href: "/dashboard/tracking", icon: Truck },
+        { name: "Add Truck", href: "/dashboard/transp", icon: Truck },
+
       ]
     : [
         { name: "Drivers", href: "/dashboard/drivers", icon: User },
@@ -45,6 +47,8 @@ export function Sidebar() {
         { name: "Income", href: "/dashboard/revenue", icon: DollarSign },
         { name: "Billing", href: "/dashboard/billing", icon: FileText },
         { name: "Tracking", href: "/dashboard/tracking", icon: Truck },
+        { name: "Add Truck", href: "/dashboard/transp", icon: Truck },
+
       ]
 
 

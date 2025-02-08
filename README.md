@@ -1,6 +1,6 @@
 # Trackini 
 
-An innovative platform built with **Next.js**, **Tailwind CSS**, and **TypeScript** to lower costs and automate the transportation of goods. Our solution streamlines logistics and provides a dedicated driver app for real-time tracking, making the whole process easier and faster.
+An innovative platform built with **Next.js**, **Tailwind CSS**, and **TypeScript** to lower costs and automate the transportation of goods. Our solution streamlines logistics and provides a dedicated driver app for real-time tracking, making the process easier and faster.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@ Our platform is designed to modernize and simplify the transportation of goods. 
   - Navigate optimized routes.
   - Manage tasks and update delivery statuses.
 - **Real-Time Tracking:** Monitor the status of goods during transit for increased transparency.
-- **Responsive User Interface:** Built with Next.js and Tailwind CSS to ensure a modern, responsive, and user-friendly experience.
+- **Modern User Interface:** Built with Next.js and Tailwind CSS to ensure a modern, responsive, and user-friendly experience.
 - **Robust Codebase:** Developed with TypeScript for enhanced reliability and maintainability.
 
 ## Technologies

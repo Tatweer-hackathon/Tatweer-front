@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock,User } from "lucide-react";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
@@ -19,6 +19,11 @@ import {
 } from "src/components/ui/form";
 import { Input } from "src/components/ui/input";
 import { useRouter } from "next/navigation";
+import Googgle from "./google";
+import { UserState } from "src/lib/atom";
+import { useSetAtom } from "jotai";
+
+
 
 const formSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email").max(50),
@@ -45,6 +50,8 @@ const SignForm: React.FC = () => {
     { label: "Company", type: "company" },
   ];
 
+  const setUser = useSetAtom(UserState)
+
 
   const signInMutation = useMutation({
     mutationFn: async (values: z.infer<typeof formSchema>) => {
@@ -60,7 +67,8 @@ const SignForm: React.FC = () => {
       return await api.post(`/Auth/login`, payload);
     },
     onSuccess: (response) => {
-      const { data } = response;
+      const data = response.data;
+      setUser(data.type);
       toast.success("Signed in successfully!");
 
       if (data.token) {
@@ -112,7 +120,8 @@ const SignForm: React.FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <div className="relative">
+                  <div className="relative">
+                      <User className="absolute left-3 top-3 text-gray-500" />
                       <Input
                         placeholder="Name"
                         {...field}
@@ -179,11 +188,12 @@ const SignForm: React.FC = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-primary rounded-full py-4 text-white hover:opacity-85"
+              className="w-full bg-primary rounded-full py-4 text-white hover:opacity-85 bg-[#446de2]"
               disabled={signInMutation.isPending}
             >
               {signInMutation.isPending ? "Signing In..." : "Sign In"}
             </button>
+                            <Googgle />
 
             {/* Sign-up Redirect */}
             <p className="text-center">
@@ -192,6 +202,7 @@ const SignForm: React.FC = () => {
                 Sign Up
               </Link>
             </p>
+
           </form>
         </Form>
       </div>

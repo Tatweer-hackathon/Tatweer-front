@@ -17,6 +17,8 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Googgle from "./google";
+
 // ✅ Define form schema with Zod
 const formSchema = z
   .object({
@@ -90,10 +92,10 @@ const SignUpForm: React.FC = () => {
   const onSubmit = (values: FormSchemaType) => signUpMutation.mutate(values);
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center  ">
       <div className="bg-white p-5 sm:p-10 w-[500px] md:p-12 rounded-lg shadow-lg h-md mx-4">
         <Form {...form}>
-            <h1 className="text-4xl font-bold text-center">Sign up</h1>
+            <h1 className="text-4xl font-bold text-center mb-4">Sign up</h1>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
             {/* User Type Selection */}
@@ -121,7 +123,7 @@ const SignUpForm: React.FC = () => {
                   <FormControl>
                     <div className="relative">
                       <span className="absolute left-3 top-3 text-gray-500">{icon}</span>
-                      <Input {...field} placeholder={placeholder} className="pl-10 pr-3" />
+                      <Input {...field} placeholder={placeholder} className="pl-10 pr-3 py-7" />
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -139,7 +141,7 @@ const SignUpForm: React.FC = () => {
                   <FormControl>
                     <div className="relative">
                       <span className="absolute left-3 top-3 text-gray-500"><Lock /></span>
-                      <Input {...field} type={show ? "text" : "password"} placeholder={placeholder} className="pl-10 flex items-center justify-center pr-10" />
+                      <Input {...field} type={show ? "text" : "password"} placeholder={placeholder} className="pl-10 flex items-center justify-center pr-10 py-7" />
                       <span onClick={() => setShow(!show)} className="absolute right-3 top-3 cursor-pointer">
                         {show ? <Eye size={20} /> : <EyeOff size={20} />}
                       </span>

@@ -46,12 +46,19 @@ export default function Home() {
         className="container mx-auto flex flex-col items-center justify-center px-4 pt-16 pb-16 text-center"
       >
         <div className="mt-16 w-full">
-          <div className="flex flex-col space-y-8">
+            <div className="flex flex-col space-y-8">
             <h1 className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-tight">
               THE PATH TO OPTIMIZATION STARTS WITH
             </h1>
-            <span className="text-[#3461e0] text-5xl sm:text-7xl md:text-9xl font-extrabold">TRACKINI</span>
-          </div>
+            <Image
+              src="/logo.svg"
+              alt="Trackini Logo"
+              width={500}
+              height={200}
+              className="mx-auto"
+              priority
+            />
+            </div>
         </div>
         <p className="mt-8 max-w-4xl text-center text-[#747587] text-lg sm:text-xl md:text-2xl">
           At Trackini, we believe that organization is the cornerstone of optimization. Our FMS and TMS are meticulously

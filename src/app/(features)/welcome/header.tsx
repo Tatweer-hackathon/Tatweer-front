@@ -9,11 +9,11 @@ export function Header() {
 
   const headers = [
     { name: "Home", path: "/" },
-    { name: "Company", path: "#section1" },
-    { name: "Product", path: "#section2" },
-    { name: "Pricing", path: "#section3" },
+    
     { name: "About us", path: "#section4" },
     { name: "Contact", path: "#section5" },
+    { name: "Sign in", path: "/signin" },
+    { name: "Sign up", path: "/signup" },
   ]
 
 

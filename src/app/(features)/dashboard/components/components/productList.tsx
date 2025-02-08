@@ -96,7 +96,7 @@ const filtered = Array.isArray(products)  ? products.filter((h: Product) =>
           <CardContent>
         <div className="flex justify-between mb-4">
           <Input
-            placeholder="Rechercher un hébergement..."
+            placeholder="Rechercher un produit..."
             value={searchTerm}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
             className="max-w-sm p-3"

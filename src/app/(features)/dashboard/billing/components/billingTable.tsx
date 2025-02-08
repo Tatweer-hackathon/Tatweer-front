@@ -17,46 +17,66 @@ import { Button } from "src/components/ui/button";
 import { Input } from "src/components/ui/input";
 import { PencilLine, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { ProductModal } from "../../products/productModel";
 
-interface transaction {
+interface  Product  {
+  _id: string;
   name: string;
-  city: string;
-  date: Date;
-  pricing: string;
+  type: string;
+  available: string;
+  additionDate?: Date;
 }
-const transactions: transaction[] = [
-    {
-        name: "Electronic Device",
-        city: "Electronics",
-        date: new Date(),
-        pricing: "available",
-    },
-    {
-        name: "Furniture Item",
-        city: "Furniture",
-        date: new Date(),
-        pricing: "unavailable",
-    },
-    {
-        name: "Clothing Item",
-        city: "Clothing",
-        date: new Date(),
-        pricing: "available",
-    },
-    ];
+
+
+const initialProducts: Product[] = [
+  {
+    _id: "1",
+    name: "Electronic Device",
+    type: "Electronics",
+    additionDate: new Date(),
+    available: 'available'
+  },
+  {
+    _id: "2",
+    name: "Furniture Item",
+    type: "Furniture",
+    additionDate: new Date(),
+    available: 'unavailable'
+  },
+  {
+    _id: "3",
+    name: "Clothing Item",
+    type: "Clothing",
+    additionDate: new Date(),
+    available: 'available'
+  }
+];
 
 
 const BillingTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [productState, setProductState] = useState<transaction[]>([]);
-  const [error, setError] = useState("");
 
-  const filtered = Array.isArray(transactions)
-    ? transactions.filter(
-        (h: transaction) =>
+   const [products, setProducts] = useState<Product[]>(initialProducts);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    
+    const handleAddProduct = (productData: Product) => {
+      const newProduct: Product = {
+        _id: Date.now().toString(),
+        name: productData.name,
+        type: 'Default',
+        additionDate: new Date(),
+        available: 'available'
+      };
+      setProducts([...products, newProduct]);
+    };
+
+  const filtered = Array.isArray(products)
+    ? products.filter(
+        (h: Product) =>
           h.name.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
-          h.city.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
-          h.pricing.toLowerCase().includes(searchTerm.toLowerCase().trim())
+          h.type.toLowerCase().includes(searchTerm.toLowerCase().trim()) ||
+          h.available.toLowerCase().includes(searchTerm.toLowerCase().trim())
       )
     : [];
 
@@ -69,36 +89,36 @@ const BillingTable = () => {
         <CardContent>
           <div className="flex justify-between mb-4">
             <Input
-              placeholder="Rechercher un hébergement..."
+              placeholder="Rechercher un produit..."
               value={searchTerm}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setSearchTerm(e.target.value)
               }
               className="max-w-sm p-3"
             />
-            <Button>Ajouter un Hébergement</Button>
+            <Button onClick={() => setIsModalOpen(true)}>Ajouter un Produit</Button>
           </div>
           <Table >
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>City</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Pricing</TableHead>
+                <TableHead className="text-center">Name</TableHead>
+                <TableHead className="text-center">Type</TableHead>
+                <TableHead className="text-center">Addition Date</TableHead>
+                <TableHead className="text-center">Availability</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody >
               {filtered &&
-                filtered.map((item: transaction) => (
+                filtered.map((item: Product) => (
                   <TableRow key={item.name} className="odd:bg-gray-100">
                     <TableCell className="text-center">{item.name}</TableCell>
-                    <TableCell className="text-center">{item.city}</TableCell>
+                    <TableCell className="text-center">{item.type}</TableCell>
                     <TableCell className="text-center">
-                      {new Date(item.date).toLocaleDateString()}
+                      {item.additionDate ? new Date(item.additionDate).toLocaleDateString() : '-'}
                     </TableCell>
                     <TableCell className="text-center">
-                      {item.pricing}
+                      {item.available}
                     </TableCell>
                     <TableCell className="space-x-2 flex justify-end gap-4">
                       <PencilLine className="cursor-pointer" />
@@ -110,6 +130,11 @@ const BillingTable = () => {
           </Table>
         </CardContent>
       </Card>
+      <ProductModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={handleAddProduct}
+              />
     </div>
   );
 };

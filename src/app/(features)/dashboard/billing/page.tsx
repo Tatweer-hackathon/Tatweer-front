@@ -43,32 +43,31 @@ const BillingsPage = () => {
     return (
         <div className="flex flex-col gap-10 items-center justify-center w-full ">
             <section className="flex flex-col gap-6 justify-start w-full">
-            <ShipmentHeader title="Billing"/>
-
-            <section className="flex justify-start items-center m-10 ">
-                <h1 className="font-bold text-2xl">Billings </h1>
+                <ShipmentHeader title="Billing" />
+                <section className="flex justify-start items-center m-10 ">
+                    <h1 className="font-bold text-2xl">Billings </h1>
+                </section>
             </section>
-            </section>
-            <hr className="w-full "/>
+            <hr className="w-full " />
 
             <ul className="flex flex-wrap gap-40 justify-center items-center ">
-           {
-                billingData.map((infos, index) => {
-                    return (
-                        <li key={index}>
-                            <CardItem data={infos}/>
-                        </li>
-                    );
-                })
+                {
+                    billingData.map((infos, index) => {
+                        return (
+                            <li key={index}>
+                                <CardItem data={infos} />
+                            </li>
+                        );
+                    })
 
-            }
+                }
 
-           </ul>
-            <BillingTable/>
-          
+            </ul>
+            <BillingTable />
+
 
         </div>
     );
-    }
+}
 
-    export default BillingsPage;
+export default BillingsPage;

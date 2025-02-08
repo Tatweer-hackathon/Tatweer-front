@@ -11,15 +11,7 @@ const Page = () => {
       </aside>
       <aside className="flex flex-col justify-center items-center gap-8 w-1/2 h-full">
         <SignForm />
-        <section className="flex justify-center items-center gap-10">
-          <hr className="w-32" />
-          <p className="text-3xl whitespace-nowrap">
-            <span className="font-bold">Login </span>
-            with Other
-          </p>
-          <hr className="w-32" />
-        </section>
-        <Googgle />
+        
       </aside>
     </div>
   );

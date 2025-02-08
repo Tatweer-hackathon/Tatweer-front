@@ -36,15 +36,13 @@ export function ShipmentHeader({title}:HeaderProps) {
           <section className="flex items-center  space-x-2 p-1 rounded-full hover:bg-gray-200">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button  className="relative h-8 w-8 flex justify-center items-center rounded-full bg-white">
                 <User className="h-6 w-6" />
-              </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" className="bg-white shadow-lg">
+            <DropdownMenuContent align="end" className="bg-white">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <Link href="/">Log out</Link>

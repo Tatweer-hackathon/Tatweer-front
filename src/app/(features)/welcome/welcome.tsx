@@ -60,6 +60,9 @@ export default function Home() {
             />
             </div>
         </div>
+        <button className="bg-[#203b8a] w-1/3 text-white px-8 py-3 rounded-full mt-8 font-semibold">
+          Get Started
+        </button>
         <p className="mt-8 max-w-4xl text-center text-[#747587] text-lg sm:text-xl md:text-2xl">
           At Trackini, we believe that organization is the cornerstone of optimization. Our FMS and TMS are meticulously
           designed to streamline operations to move swiftly and efficiently in the complex world of logistics.
@@ -75,13 +78,19 @@ export default function Home() {
           <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-black shadow-xl">
             <Image src="/map.png" alt="Shipment Tracking" fill className="object-cover" priority />
             <div className="absolute bottom-6 left-6 z-10">
-              <h2 className="text-2xl sm:text-3xl md:text-[32px] font-bold text-neutral-950 mb-2">
-                Track your shipment now
+              <h2 className="text-3xl sm:text-3xl md:text-[32px] font-bold text-neutral-950 mb-2">
+                Be chill
               </h2>
-              <div className="flex items-baseline gap-2">
-                <span className="text-black text-2xl sm:text-3xl md:text-[40px] font-bold">With</span>
-                <span className="text-[#3461e0] text-4xl sm:text-6xl md:text-8xl font-black">TRACKINI</span>
-              </div>
+              <div className="flex gap-2 items-center">
+                <span className="text-black text-3xl sm:text-3xl md:text-[40px] font-bold">With</span>
+                <Image
+              src="/logo.svg"
+              alt="Trackini Logo"
+              width={200}
+              height={200}
+              className="mx-auto"
+              priority
+            />              </div>
             </div>
           </div>
         </div>
@@ -91,11 +100,7 @@ export default function Home() {
       <section id="section3" className="container mx-auto flex flex-col items-center justify-center px-4 py-16">
         <h2 className="text-[#3461e0] text-4xl sm:text-5xl md:text-[77px] font-bold mb-12">Who are TRACKINI ?</h2>
         <p className="max-w-4xl text-center text-[#111111] text-lg sm:text-xl md:text-2xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in orci in nisl vehicula vulputate sagittis in
-          ligula. Praesent efficitur sapien ante. Donec malesuada leo sed eros pharetra tempus. Mauris vehicula magna
-          posuere, dignissim lacus et, fermentum sapien. Pellentesque vel tortor maximus, ultricies sem non, aliquet
-          augue. Duis mollis faucibus enim, eu ultricies justo scelerisque quis. Sed euismod tincidunt vulputate.
-          Curabit
+         Trackini is a cutting-edge Fleet Management System (FMS) and Transportation Management System (TMS) designed to revolutionize logistics operations. Our platform provides real-time tracking, route optimization, and comprehensive fleet analytics to help businesses maximize efficiency and reduce operational costs. With advanced GPS tracking, automated dispatching, and intelligent reporting features, Trackini empowers logistics companies to make data-driven decisions while ensuring timely deliveries and maintaining cargo safety.
         </p>
       </section>
 

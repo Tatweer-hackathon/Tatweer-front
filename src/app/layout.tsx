@@ -2,8 +2,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import React from "react";
+import React, { Suspense } from "react";
 import Providers from "src/app/(features)/(auth)/signin/providers";
+import Loading from "./loading";
+// import Loading from "./animations";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="font-sans bg-soft-gradient" suppressHydrationWarning={true}>
+        <Suspense fallback={<Loading />}>
         <Providers>
           {children}
         </Providers>
+        </Suspense>
       </body>
     </html>
   );

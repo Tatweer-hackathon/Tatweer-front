@@ -9,26 +9,26 @@ const testimonials = [
       "I'm impressed with the features and user-friendly interface. It's become an essential tool for my daily tasks.",
     image: "/placeholder.svg",
   },
-//   {
-//     name: "Mohamed moh",
-//     feedback: "The customer support is outstanding. They quickly resolved my issues and improved my experience.",
-//     image: "/placeholder.svg",
-//   },
-//   {
-//     name: "Mondher",
-//     feedback: "This solution has transformed how our team collaborates. It's been a game-changer for our projects.",
-//     image: "/placeholder.svg",
-//   },
-//   {
-//     name: "Amine",
-//     feedback: "I appreciate the regular updates and new features. The developers clearly listen to user feedback.",
-//     image: "/placeholder.svg",
-//   },
-//   {
-//     name: "Zakria",
-//     feedback: "The app's performance is exceptional. It handles complex tasks with ease and speed.",
-//     image: "/placeholder.svg",
-//   },
+  // {
+  //   name: "Mohamed moh",
+  //   feedback: "The customer support is outstanding. They quickly resolved my issues and improved my experience.",
+  //   image: "/placeholder.svg",
+  // },
+  //   {
+  //     name: "Mondher",
+  //     feedback: "This solution has transformed how our team collaborates. It's been a game-changer for our projects.",
+  //     image: "/placeholder.svg",
+  //   },
+  //   {
+  //     name: "Amine",
+  //     feedback: "I appreciate the regular updates and new features. The developers clearly listen to user feedback.",
+  //     image: "/placeholder.svg",
+  //   },
+  //   {
+  //     name: "Zakria",
+  //     feedback: "The app's performance is exceptional. It handles complex tasks with ease and speed.",
+  //     image: "/placeholder.svg",
+  //   },
 ]
 
 export default function CarouselDemo() {
@@ -48,9 +48,9 @@ export default function CarouselDemo() {
               <Card className="bg-[#F5F9FF] border-none p-6 min-h-[334px]">
                 {/* Quote Icon */}
                 <div className="mb-4">
-                  <Quote className="w-8 h-8 text-gray-400"  /><div className="mb-4">
-  <Quote className="w-8 h-8 text-gray-400" />
-</div>
+                  <Quote className="w-8 h-8 text-gray-400" /><div className="mb-4">
+                    <Quote className="w-8 h-8 text-gray-400" />
+                  </div>
                 </div>
 
                 <div className="flex flex-col h-full">
@@ -76,10 +76,10 @@ export default function CarouselDemo() {
 
         {/* Navigation Buttons */}
         <div className="absolute -left-12 top-1/2 -translate-y-1/2">
-          <CarouselPrevious className="h-12 w-12" />
+          {/* <CarouselPrevious className="h-12 w-12" /> */}
         </div>
         <div className="absolute -right-12 top-1/2 -translate-y-1/2">
-          <CarouselNext className="h-12 w-12" />
+          {/* <CarouselNext className="h-12 w-12" /> */}
         </div>
       </Carousel>
     </div>

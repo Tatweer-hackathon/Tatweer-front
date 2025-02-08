@@ -27,7 +27,7 @@ export function Header() {
                 href={item.path}
                 key={index}
                 className={`text-lg font-medium ${item.path === "Home" &&
-                  "bg-gray-100 h-[32px] w-[70px] items-center justify-center flex rounded"
+                  "bg-gray-100 h-[32px] w-[70px] items-center justify-center flex rounded-full "
                   } text-gray-600 hover:bg-[#3461E0]/15 p-2 rounded-md transition-colors`}
               >
                 {item.name}
